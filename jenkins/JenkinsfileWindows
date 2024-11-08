@@ -37,7 +37,7 @@ pipeline {
                     bat "docker stop ${appName} || exit 0"
                     bat "docker rm ${appName}  || exit 0"
                     // Executar o novo container
-                    bat "docker run -d --name ${appName} -p 3000:3000 ${imageTag}"
+                    bat "docker run --name ${appName} --net=host ${imageTag}"
                 }
             }
         }
