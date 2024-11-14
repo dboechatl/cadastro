@@ -2,7 +2,7 @@
 FROM maven:latest AS build
 WORKDIR /cadastro
 COPY pom.xml .           # Copia o arquivo pom.xml
-#COPY src ./src           # Copia o diretorio src
+COPY src .          # Copia o diretorio src
 RUN mvn clean package -DskipTests  # Executa o build da aplicação
 
 # Segundo estágio para a imagem final
