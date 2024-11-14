@@ -1,5 +1,5 @@
 # Primeiro estágio de build
-FROM maven:3.8.6-openjdk-17 AS build
+FROM maven:latest AS build
 WORKDIR /cadastro
 COPY pom.xml .           # Copia o arquivo pom.xml
 COPY src ./src           # Copia o diretório src
