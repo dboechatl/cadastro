@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Verificar Repositório') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/cadastro2']], useRemoteConfigs:[[url: 'https://github.com/dboechatl/cadastro.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/cadastro3']], useRemoteConfigs:[[url: 'https://github.com/dboechatl/cadastro.git']]])
             }
         }
         //stage('Instalar Dependências') {
@@ -38,7 +38,8 @@ pipeline {
                     bat "docker rm ${appName}  || exit 0"
                     // Executar o novo container
                     //bat "docker run -d --name ${appName} -p 3000:3000 ${imageTag}"
-                    bat "docker run -d --name ${appName} --net=host ${imageTag}"
+                    //bat "docker run -d --name ${appName} --net=host ${imageTag}"
+                    bat "docker-compose up -d --build"
                 }
             }
         }
