@@ -1,10 +1,14 @@
-FROM openjdk:17-jdk-alpine
-FROM maven:latest AS build
+# Primeiro estágio de build
+FROM maven:3.8.6-openjdk-17 AS build
 WORKDIR /cadastro
-COPY pom.xml .
-COPY src ./src
-RUN mvn clean package -DskipTests
-ARG JAR_FILE=target/*.jar
-COPY --from=build /app/target/*.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+COPY pom.xml .           # Copia o arquivo pom.xml
+COPY src ./src           # Copia o diretório src
+RUN mvn clean package -DskipTests  # Executa o build da aplicação
+
+# Segundo estágio para a imagem final
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
+COPY --from=build /cadastro/target/*.jar app.jar  # Copia o JAR do primeiro estágio para o segundo
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]  # Executa o JAR copiado
 EXPOSE 8080
