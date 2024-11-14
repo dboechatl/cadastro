@@ -1,4 +1,3 @@
-WORKDIR /cadastro
 FROM maven:latest AS build
 FROM openjdk:20-jdk-slim
 ARG JAR_FILE=cadastro/target/*.jar
